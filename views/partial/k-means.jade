@@ -1,0 +1,6 @@
+form.ui.form(name="controlForm", ng-submit="kMeans()", ng-class="{'loading': computing}")
+    div.inline.field
+        label k:
+        input(type="number", ng-model="kMeansData.k", placeholder="k 值 , 即类别个数。")
+    div.field
+        button.ui.button(type="submit") 开始聚类

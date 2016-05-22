@@ -1,0 +1,48 @@
+{
+  "name": "k-means",
+  "version": "1.0.5",
+  "description": "Play cube online. 在线玩魔方.",
+  "main": "app.js",
+  "scripts": {
+    "test": "gulp mocha && gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jeff-Tian/cube.git"
+  },
+  "keywords": [
+    "geek"
+  ],
+  "author": "http://zizhujy.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jeff-Tian/cube/issues"
+  },
+  "homepage": "https://github.com/Jeff-Tian/cube#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "connect-busboy": "0.0.2",
+    "express": "^4.13.4",
+    "jade": "1.11.0",
+    "pug": "^2.0.0-alpha3",
+    "semantic-ui": "^2.1.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-bump": "^2.1.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-replace": "^0.5.4",
+    "jasmine-core": "^2.4.1",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.7",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "phantomjs-prebuilt": "^2.1.5",
+    "shelljs": "^0.6.0"
+  },
+  "directories": {
+    "test": "tests"
+  }
+}
