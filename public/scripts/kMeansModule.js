@@ -166,7 +166,7 @@ angular.module('kMeansModule', [])
 
         function mean(a) {
             return a.reduce(function (x, y) {
-                    return x + y;
+                    return Number(x) + Number(y);
                 }, 0) / a.length;
         }
 
@@ -214,10 +214,6 @@ angular.module('kMeansModule', [])
         function recordCurrentData(ret, loops) {
             $scope.current = angular.extend({}, ret);
             $scope.current.iteration = loops;
-
-            if (col(ret.centers, 0).indexOf(null) >= 0) {
-                debugger;
-            }
         }
 
         $scope.computing = false;
@@ -260,5 +256,25 @@ angular.module('kMeansModule', [])
                 loop(loops, ret.clusters, ret.centers, done);
             }, $scope.interval);
         };
+
+        var container = document.getElementById('data-table');
+        var hot = new Handsontable(container, {
+            data: $scope.testData,
+            colHeaders: [
+                'x', 'y'
+            ],
+            maxCols: 2,
+            rowHeaders: true,
+            contextMenu: true,
+            autoWrapRow: true,
+            Controller: true,
+            minSpareRows: 1,
+            beforeChange: function (changes, source) {
+            },
+            afterChange: function () {
+                $scope.testData = this.getData();
+                initPlot($scope.testData);
+            }
+        });
     }])
 ;
