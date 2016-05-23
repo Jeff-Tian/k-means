@@ -51,15 +51,14 @@ angular.module('kMeansModule', [])
         }
 
         function getRandomPoint() {
-            var axes = plot.getAxes();
-            var x = (Math.random() * (axes.xaxis.datamax - axes.xaxis.datamin) + axes.xaxis.datamin);
-            var y = (Math.random() * (axes.yaxis.datamax - axes.yaxis.datamin) + axes.yaxis.datamin);
+            var randomPoint = Math.floor(Math.random() * $scope.testData.length);
 
-            return [x, y];
+            return $scope.testData[randomPoint];
         }
 
         $scope.kMeansData = {
-            k: 2
+            k: 2,
+            maxLoops: 10
         };
 
         function redraw(series) {
@@ -219,33 +218,33 @@ angular.module('kMeansModule', [])
         }
 
         function centersEqual(centers1, centers2) {
-            if (centers1.length !== centers2.length) {
-                return false;
-            }
-
-            if (!allLeftInRight(centers1, centers2)) {
-                return false;
-            }
-
-            if (!allLeftInRight(centers2, centers1)) {
-                return false;
-            }
-
-            return true;
+            return !!centers1 && !!centers2 && !(centers1 < centers2 || centers2 < centers1);
         }
 
         $scope.interval = 100;
 
+        function recordCurrentData(ret, loops) {
+            $scope.current = ret;
+            $scope.current.iteration = loops;
+
+            if (col(ret.centers, 0).indexOf(null) >= 0) {
+                debugger;
+            }
+        }
+
         $scope.computing = false;
         function loop(loops, clusters, centers, callback) {
-            var condition = loops <= 100;
+            var condition = function () {
+                return loops <= $scope.kMeansData.maxLoops;
+            };
 
-            while (condition) {
+            while (condition()) {
                 loops++;
                 var ret = recenterAndCluster(clusters);
+                recordCurrentData(ret, loops);
 
-                if ((!condition || centersEqual(centers, ret.centers)) && (typeof callback === 'function')) {
-                    return callback();
+                if ((!condition() || centersEqual(centers, ret.centers)) && (typeof callback === 'function')) {
+                    return callback(ret);
                 }
 
                 $timeout(function () {
@@ -256,15 +255,21 @@ angular.module('kMeansModule', [])
             }
         }
 
+        function done(result) {
+            console.log('done');
+            console.log(result);
+            $scope.computing = false;
+
+            $scope.clusteringResult = result;
+        }
+
         $scope.kMeans = function () {
             $scope.computing = true;
             var ret = initKMeans();
 
             $timeout(function () {
                 var loops = 0;
-                loop(loops, ret.clusters, ret.centers, function () {
-                    $scope.computing = false;
-                });
+                loop(loops, ret.clusters, ret.centers, done);
             }, $scope.interval);
         };
     }])
