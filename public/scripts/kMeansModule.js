@@ -50,12 +50,6 @@ angular.module('kMeansModule', [])
             window.plot = plot;
         }
 
-        function getRandomPoint() {
-            var randomPoint = Math.floor(Math.random() * $scope.testData.length);
-
-            return $scope.testData[randomPoint];
-        }
-
         $scope.kMeansData = {
             k: 2,
             maxLoops: 10
@@ -81,11 +75,21 @@ angular.module('kMeansModule', [])
             redraw(series.concat(newSeries));
         }
 
+        function shuffle(a) {
+            for (var i = a.length; i > 0; i--) {
+                var j = Math.floor(Math.random() * i);
+                var x = a[i - 1];
+                a[i - 1] = a[j];
+                a[j] = x;
+            }
+        }
+
         function chooseRandomCenters(k) {
             var a = [];
 
+            shuffle($scope.testData);
             for (var i = 0; i < k; i++) {
-                a.push(getRandomPoint());
+                a.push($scope.testData[i]);
             }
 
             return a;
@@ -201,22 +205,6 @@ angular.module('kMeansModule', [])
             return {centers: centers, clusters: clusters};
         }
 
-        function allLeftInRight(centers1, centers2) {
-            for (var i = 0; i < centers1.length; i++) {
-                var index = col(centers2, 0).indexOf(centers1[i][0]);
-
-                if (index < 0) {
-                    return false;
-                }
-
-                if (centers1[i][1] !== centers2[index][1]) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
         function centersEqual(centers1, centers2) {
             return !!centers1 && !!centers2 && !(centers1 < centers2 || centers2 < centers1);
         }
@@ -224,7 +212,7 @@ angular.module('kMeansModule', [])
         $scope.interval = 100;
 
         function recordCurrentData(ret, loops) {
-            $scope.current = ret;
+            $scope.current = angular.extend({}, ret);
             $scope.current.iteration = loops;
 
             if (col(ret.centers, 0).indexOf(null) >= 0) {
