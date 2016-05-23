@@ -76,22 +76,28 @@ angular.module('kMeansModule', [])
         }
 
         function shuffle(a) {
-            for (var i = a.length; i > 0; i--) {
-                var j = Math.floor(Math.random() * i);
-                var x = a[i - 1];
-                a[i - 1] = a[j];
-                a[j] = x;
+            var array = a.slice(0);
+            var copy = [], n = array.length, i;
+
+            // While there remain elements to shuffle…
+            while (n) {
+
+                // Pick a remaining element…
+                i = Math.floor(Math.random() * n--);
+
+                // And move it to the new array.
+                copy.push(array.splice(i, 1)[0]);
             }
+
+            return copy;
         }
 
         function chooseRandomCenters(k) {
             var a = [];
-
-            shuffle($scope.testData);
+            var shuffled = shuffle($scope.testData);
             for (var i = 0; i < k; i++) {
-                a.push($scope.testData[i]);
+                a.push(shuffled[i]);
             }
-
             return a;
         }
 
@@ -272,7 +278,9 @@ angular.module('kMeansModule', [])
             beforeChange: function (changes, source) {
             },
             afterChange: function () {
-                $scope.testData = this.getData();
+                $scope.testData = this.getData().filter(function (a) {
+                    return (a[0] !== null && a[1] !== null);
+                });
                 initPlot($scope.testData);
             }
         });
