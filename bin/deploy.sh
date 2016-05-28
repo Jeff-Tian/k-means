@@ -14,12 +14,12 @@ echo ------------------------
 
 # check environment
 cd /var/www/html
-if [ ! -d "website" ]; then
-	mkdir website
+if [ ! -d "websites" ]; then
+	mkdir websites
 	[ $? -gt 0 ] && echo "create folder website error" && exit 1
 fi
 
-cd website
+cd websites
 if [ ! -d "$SERVICE_NAME" ]; then
 	mkdir $SERVICE_NAME
 	[ $? -gt 0 ] && echo "create folder service error:" $SERVICE_NAME && exit 1
