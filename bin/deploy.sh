@@ -8,9 +8,12 @@ echo '------------------------'
 
 echo ------------------------
 echo $WORKSPACE
+echo 'pwd: '
+pwd
 echo ------------------------
 
 # check environment
+cd /var/www/html
 if [ ! -d "website" ]; then
 	mkdir website
 	[ $? -gt 0 ] && echo "create folder website error" && exit 1
@@ -27,10 +30,10 @@ END
 
 echo ------------------------
 echo 'start copy from: ' ${WORKSPACE}
-echo 'to ' ~/website/$SERVICE_NAME
+echo 'to ' /var/www/html/websites/$SERVICE_NAME
 echo ------------------------
 
-rsync -rlptz --delete-after ${WORKSPACE}/ ~/website/$SERVICE_NAME
+rsync -rlptz --delete-after ${WORKSPACE}/ /var/www/html/websites/$SERVICE_NAME
 [ $? -gt 0 ] && echo "copy to remote server error" && exit 1
 echo "end copy ================="
 
@@ -46,8 +49,8 @@ if [ -n "$APP_NAME" ]; then
     export APP_NAME
 fi
 
-cd ~/website/$SERVICE_NAME
-[ $? -gt 0 ] && echo "folder not found ~/website/"$SERVICE_NAME && exit 1
+cd /var/www/html/websites/$SERVICE_NAME
+[ $? -gt 0 ] && echo "folder not found /var/www/html/websites/"$SERVICE_NAME && exit 1
 
 echo 'restart node'
 bin/stop.sh "$APP_NAME"
