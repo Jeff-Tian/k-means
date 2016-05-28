@@ -8,4 +8,7 @@ module.exports = require('express').Router()
         });
     })
     .get('/virtual-scripts', require('./virtual-scripts.js'))
+    .get('/ping', function (req, res) {
+        res.send('pong');
+    })
 ;
