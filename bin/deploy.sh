@@ -33,7 +33,8 @@ echo 'start copy from: ' ${WORKSPACE}
 echo 'to ' /var/www/html/websites/$SERVICE_NAME
 echo ------------------------
 
-rsync -rlptz --delete-after ${WORKSPACE}/ /var/www/html/websites/$SERVICE_NAME/
+# TODO: why only empty folder get copied?
+rsync -rlptz --delete-after ${WORKSPACE}/ /var/www/html/websites/$SERVICE_NAME
 [ $? -gt 0 ] && echo "copy to remote server error" && exit 1
 echo "end copy ================="
 
