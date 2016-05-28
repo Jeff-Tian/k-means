@@ -13,13 +13,13 @@ echo ------------------------
 # check environment
 if [ ! -d "website" ]; then
 	mkdir website
-	[ \$? -gt 0 ] && echo "create folder website error" && exit 1
+	[ $? -gt 0 ] && echo "create folder website error" && exit 1
 fi
 
 cd website
 if [ ! -d "$SERVICE_NAME" ]; then
 	mkdir $SERVICE_NAME
-	[ \$? -gt 0 ] && echo "create folder service error:" $SERVICE_NAME && exit 1
+	[ $? -gt 0 ] && echo "create folder service error:" $SERVICE_NAME && exit 1
 fi
 exit 0
 END
@@ -47,7 +47,7 @@ if [ -n "$APP_NAME" ]; then
 fi
 
 cd ~/website/$SERVICE_NAME
-[ \$? -gt 0 ] && echo "folder not found ~/website/"$SERVICE_NAME && exit 1
+[ $? -gt 0 ] && echo "folder not found ~/website/"$SERVICE_NAME && exit 1
 
 echo 'restart node'
 bin/stop.sh "$APP_NAME"
@@ -57,7 +57,7 @@ sleep 1s
 
 echo 'try start node'
 bin/start.sh "$PORT" "$APP_NAME" "$SERVICE_FARM"
-[ \$? -gt 0 ] && echo "copy to remote server error" && exit 1
+[ $? -gt 0 ] && echo "copy to remote server error" && exit 1
 
 pm2 save
 
