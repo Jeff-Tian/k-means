@@ -23,9 +23,10 @@
   "dependencies": {
     "jquery": "^2.2.1",
     "angular": "^1.5.0",
-    "cytoscape": "^2.6.7",
     "Flot": "https://github.com/flot/flot.git#^0.8.3",
-    "handsontable": "^0.24.3",
-    "hot-table": "^0.4.0"
+    "handsontable": "https://github.com/handsontable/handsontable.git#^0.25.0"
+  },
+  "resolutions": {
+    "handsontable": "^0.25.0"
   }
 }
