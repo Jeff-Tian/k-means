@@ -17,5 +17,4 @@ fi
 
 CURRENT_PATH=`dirname $0`
 pm2 start "$CURRENT_PATH/../app.js" --name "$APP_NAME"
-#node "$CURRENT_PATH/../server.js"
 exit $?
