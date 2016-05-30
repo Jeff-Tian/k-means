@@ -4,7 +4,20 @@ var bodyParser = require('body-parser');
 var busboy = require('connect-busboy');
 var jade = require('jade');
 
+var fs = require('fs');
+
 var staticFolder = __dirname + '/public';
+try {
+    var stats = fs.lstatSync(__dirname + '/dist');
+    if (stats.isDirectory()) {
+        staticFolder = __dirname + '/dist';
+    }
+
+    console.log('use ', staticFolder, ' as static folder.');
+} catch (ex) {
+    console.error(ex);
+}
+
 var viewFolder = __dirname + '/views';
 app.set('views', viewFolder);
 
@@ -18,12 +31,11 @@ var staticSetting = {
 };
 
 app.use(express.static(staticFolder, staticSetting));
-app.use('/virtual-scripts/cube', express.static(__dirname + '/cube', staticSetting));
 
 app.set('port', (process.env.PORT || 60004));
 
 app.use(require('./routes/index.js'));
 
 app.listen(app.get('port'), function () {
-    console.log('cube application is running on port ', app.get('port'));
+    console.log('k-means application is running on port ', app.get('port'));
 });
