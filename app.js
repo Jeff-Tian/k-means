@@ -39,6 +39,7 @@ var staticSetting = {
 };
 
 app.use(express.static(staticFolder, staticSetting));
+app.use('/locales', express.static(__dirname + '/locales', staticSetting));
 
 app.use(i18n.init);
 app.all('*', locales.setLocale, locales.setLocalVars);

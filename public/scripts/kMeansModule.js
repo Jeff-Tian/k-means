@@ -1,5 +1,41 @@
-angular.module('kMeansModule', [])
-    .controller('kMeansCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+angular.module('kMeansModule', ['pascalprecht.translate', 'ngSanitize', 'localeHelperModule'])
+    .config(['$translateProvider', 'localeHelperProvider', function ($translateProvider, localeHelperProvider) {
+        $translateProvider.useLoader('translationLoader');
+        console.log('localeHelperProvider', localeHelperProvider);
+        var locale = localeHelperProvider.getLocale(window.location.pathname);
+        console.log('locale = ', locale);
+        $translateProvider.preferredLanguage(locale);
+        $translateProvider.useSanitizeValueStrategy('escapeParameters');
+    }])
+    .factory('translationLoader', ['$http', '$q', '$rootScope', function ($http, $q, $rootScope) {
+        return function (options) {
+            var dfd = $q.defer();
+
+            // Filled by grunt
+            var data = {};
+
+            if (data[options.key]) {
+                dfd.resolve(data[options.key]);
+
+                return dfd.promise;
+            }
+
+            $http({
+                method: 'GET',
+                url: '/locales/' + options.key + '.json'
+            })
+                .success(function (result) {
+                    dfd.resolve(result);
+
+                    console.log('localeResource:load');
+                    $rootScope.$emit('localeResource:load');
+                })
+                .error(dfd.reject);
+
+            return dfd.promise;
+        };
+    }])
+    .controller('kMeansCtrl', ['$scope', '$timeout', '$filter', '$q', function ($scope, $timeout, $filter, $q) {
         $scope.testData =
             [
                 [2, 1],
@@ -45,9 +81,18 @@ angular.module('kMeansModule', [])
         var plot;
 
         function initPlot(data) {
-            $plot = $('#mycanvas').plot([{data: data, label: '原始数据'}], options);
+            $scope.computing = true;
+            var dfd = $q.defer();
+
+            var l = $filter('translate')('原始数据');
+            $plot = $('#mycanvas').plot([{data: data, label: l}], options);
             plot = $plot.data('plot');
             window.plot = plot;
+
+            dfd.resolve();
+
+            $scope.computing = false;
+            return dfd.promise;
         }
 
         $scope.kMeansData = {
@@ -145,12 +190,15 @@ angular.module('kMeansModule', [])
             return clusters;
         }
 
-        initPlot($scope.testData);
+        $scope.computing = true;
+        $timeout(function () {
+            initPlot($scope.testData);
+        });
 
         function seriesfyCenterSeries(s) {
             return {
                 data: s,
-                label: '质心',
+                label: $filter('translate')('质心'),
                 points: {
                     symbol: 'cross'
                 }
@@ -160,7 +208,7 @@ angular.module('kMeansModule', [])
         function seriesfy(clusters) {
             var a = [];
             clusters.forEach(function (s, index) {
-                a.push({data: s, label: '类 ' + index});
+                a.push({data: s, label: $filter('translate')('类') + ' ' + index});
             });
             return a;
         }

@@ -159,7 +159,13 @@
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = helper;
     } else if (typeof angular !== 'undefined') {
-        angular.bplus = angular.bplus || {};
-        angular.bplus.localeHelper = helper;
+        angular.module('localeHelperModule', [])
+            .provider('localeHelper', function () {
+                this.getLocale = helper.getLocale;
+                this.$get = [function () {
+                    return helper;
+                }];
+            })
+        ;
     }
 })();
