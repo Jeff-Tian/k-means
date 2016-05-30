@@ -3,8 +3,16 @@ var app = express();
 var bodyParser = require('body-parser');
 var busboy = require('connect-busboy');
 var jade = require('jade');
+var i18n = require('i18n');
+var locales = require('./locales');
 
 var fs = require('fs');
+
+i18n.configure({
+    locales: locales.supportedLocales,
+    directory: __dirname + '/locales',
+    updateFiles: true
+});
 
 var staticFolder = __dirname + '/public';
 try {
@@ -31,6 +39,9 @@ var staticSetting = {
 };
 
 app.use(express.static(staticFolder, staticSetting));
+
+app.use(i18n.init);
+app.all('*', locales.setLocale, locales.setLocalVars);
 
 app.set('port', (process.env.PORT || 60004));
 

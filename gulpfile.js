@@ -108,5 +108,5 @@ gulp.task('jade', function (done) {
 });
 
 gulp.task('build', function (done) {
-    runSequence('jshint', 'mocha', 'clean', 'jade', 'copy', 'uglify-js', 'uglify-css', done);
+    runSequence('jshint', 'mocha', 'clean', /*'jade', */'copy', 'uglify-js', 'uglify-css', done);
 });

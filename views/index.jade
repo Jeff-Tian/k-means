@@ -3,11 +3,11 @@ html
         meta(charset="utf-8")
         meta(http-quiv="X-UA-Compatible", content="IE=edge,chrome=1")
         meta(name="view-port", content="width=device-width, initial-scale=1.0, maximum-scale=1.0")
-        meta(name="description", content="在线可视化体验 k 均值聚类分析算法.")
-        title K 均值聚类算法可视化
-        link(rel="shortcut icon", href="favicon.ico")
-        link(rel="stylesheet", type="text/css", href="semantic/dist/semantic.min.css")
-        link(rel="stylesheet", type="text/css", href="bower_components/handsontable/dist/handsontable.full.min.css")
+        meta(name="description", content="#{__('在线可视化体验 k 均值聚类分析算法.')}")
+        title #{__('K 均值聚类算法可视化')}
+        link(rel="shortcut icon", href="/favicon.ico")
+        link(rel="stylesheet", type="text/css", href="/semantic/dist/semantic.min.css")
+        link(rel="stylesheet", type="text/css", href="/bower_components/handsontable/dist/handsontable.full.min.css")
         style(type="text/css").
             .cmd {
                 -moz-border-radius: 5px;
@@ -35,6 +35,7 @@ html
 
 body
     div(ng-app="kMeansModule", ng-controller="kMeansCtrl")
+        include partial/nav
         div.ui.two.column.grid
             div.ui.column
                 include partial/dash
@@ -42,12 +43,12 @@ body
                 include partial/k-means
 
     div
-        script(src="bower_components/jquery/dist/jquery.min.js")
-        script(src="semantic/dist/semantic.min.js")
-        script(src="bower_components/Flot/jquery.flot.js")
-        script(src="bower_components/Flot/jquery.flot.navigate.js")
-        script(src="bower_components/Flot/jquery.flot.symbol.js")
-        script(src="bower_components/angular/angular.min.js")
-        script(src="scripts/kMeansModule.js")
-        script(src="bower_components/handsontable/dist/handsontable.full.min.js")
+        script(src="/bower_components/jquery/dist/jquery.min.js")
+        script(src="/semantic/dist/semantic.min.js")
+        script(src="/bower_components/Flot/jquery.flot.js")
+        script(src="/bower_components/Flot/jquery.flot.navigate.js")
+        script(src="/bower_components/Flot/jquery.flot.symbol.js")
+        script(src="/bower_components/angular/angular.min.js")
+        script(src="/scripts/kMeansModule.js")
+        script(src="/bower_components/handsontable/dist/handsontable.full.min.js")
         script(type="text/javascript").

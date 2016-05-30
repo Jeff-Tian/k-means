@@ -1,13 +1,13 @@
 form.ui.form(name="controlForm", ng-submit="kMeans()", ng-class="{'loading': computing}")
     div.inline.field
-        label 中心点个数 k:
-        input(type="number", ng-model="kMeansData.k", placeholder="k 值 , 即类别个数")
+        label #{__('中心点个数 k')}:
+        input(type="number", ng-model="kMeansData.k", placeholder="#{__('k 值 , 即类别个数')}")
     div.inline.field
-        label 最大迭代次数:
-        input(type="number", ng-model="kMeansData.maxLoops", placeholder="最大迭代次数")
+        label #{__('最大迭代次数:')}
+        input(type="number", ng-model="kMeansData.maxLoops", placeholder="#{__('最大迭代次数')}")
     div.field
-        button.ui.button(type="submit") 开始聚类
+        button.ui.button(type="submit") #{__('开始聚类')}
 
     div
-        h5 数据:
+        h5 #{__('数据:')}
         div#data-table
