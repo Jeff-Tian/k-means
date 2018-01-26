@@ -1,5 +1,5 @@
 # k-means
-Online demo/visualization for k-means clustering process: http://k-means.jijiyy.me/index.html.
+Online demo/visualization for k-means clustering process: http://k-means.pa-pa.me
 
 # Run on local machine
 ```
@@ -12,5 +12,3 @@ gulp
 ![k-means screen shot](./assets/screenshot.png)
 
 
-# CI Server:
-http://ci.jijiyy.me
