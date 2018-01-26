@@ -23,14 +23,12 @@ angular.module('kMeansModule', ['pascalprecht.translate', 'ngSanitize', 'localeH
             $http({
                 method: 'GET',
                 url: '/locales/' + options.key + '.json'
-            })
-                .success(function (result) {
-                    dfd.resolve(result);
+            }).then(function (result) {
+                dfd.resolve(result);
 
-                    console.log('localeResource:load');
-                    $rootScope.$emit('localeResource:load');
-                })
-                .error(dfd.reject);
+                console.log('localeResource:load');
+                $rootScope.$emit('localeResource:load');
+            }, dfd.reject);
 
             return dfd.promise;
         };
@@ -220,8 +218,8 @@ angular.module('kMeansModule', ['pascalprecht.translate', 'ngSanitize', 'localeH
 
         function mean(a) {
             return a.reduce(function (x, y) {
-                    return Number(x) + Number(y);
-                }, 0) / a.length;
+                return Number(x) + Number(y);
+            }, 0) / a.length;
         }
 
         function col(a, i) {
@@ -271,6 +269,7 @@ angular.module('kMeansModule', ['pascalprecht.translate', 'ngSanitize', 'localeH
         }
 
         $scope.computing = false;
+
         function loop(loops, clusters, centers, callback) {
             var condition = function () {
                 return loops <= $scope.kMeansData.maxLoops;

@@ -3,12 +3,12 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2015 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
-;(function ( $, window, document, undefined ) {
+
+;(function ($, window, document, undefined) {
 
 $.site = $.fn.site = function(parameters) {
   var
@@ -32,7 +32,7 @@ $.site = $.fn.site = function(parameters) {
     $document       = $(document),
     $module         = $document,
     element         = this,
-    instance        = $module.blocks(moduleNamespace),
+    instance        = $module.data(moduleNamespace),
 
     module,
     returnedValue
@@ -47,7 +47,7 @@ $.site = $.fn.site = function(parameters) {
       module.verbose('Storing instance of site', module);
       instance = module;
       $module
-        .blocks(moduleNamespace, module)
+        .data(moduleNamespace, module)
       ;
     },
 
@@ -471,15 +471,15 @@ $.site.settings = {
 
 // allows for selection of elements with data attributes
 $.extend($.expr[ ":" ], {
-  blocks: ($.expr.createPseudo)
+  data: ($.expr.createPseudo)
     ? $.expr.createPseudo(function(dataName) {
         return function(elem) {
-          return !!$.blocks(elem, dataName);
+          return !!$.data(elem, dataName);
         };
       })
     : function(elem, i, match) {
       // support: jQuery < 1.8
-      return !!$.blocks(elem, match[ 3 ]);
+      return !!$.data(elem, match[ 3 ]);
     }
 });
 

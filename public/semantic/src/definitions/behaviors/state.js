@@ -3,15 +3,21 @@
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2015 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
 
-;(function ( $, window, document, undefined ) {
+;(function ($, window, document, undefined) {
 
 "use strict";
+
+window = (typeof window != 'undefined' && window.Math == Math)
+  ? window
+  : (typeof self != 'undefined' && self.Math == Math)
+    ? self
+    : Function('return this')()
+;
 
 $.fn.state = function(parameters) {
   var
@@ -49,7 +55,7 @@ $.fn.state = function(parameters) {
         $module         = $(this),
 
         element         = this,
-        instance        = $module.blocks(moduleNamespace),
+        instance        = $module.data(moduleNamespace),
 
         module
       ;
@@ -85,7 +91,7 @@ $.fn.state = function(parameters) {
           module.verbose('Storing instance of module', module);
           instance = module;
           $module
-            .blocks(moduleNamespace, module)
+            .data(moduleNamespace, module)
           ;
         },
 
@@ -360,8 +366,8 @@ $.fn.state = function(parameters) {
           // on mouseout sets text to previous value
           text: function() {
             var
-              activeText   = text.active   || $module.blocks(metadata.storedText),
-              inactiveText = text.inactive || $module.blocks(metadata.storedText)
+              activeText   = text.active   || $module.data(metadata.storedText),
+              inactiveText = text.inactive || $module.data(metadata.storedText)
             ;
             if( module.is.textEnabled() ) {
               if( module.is.active() && activeText) {
@@ -385,14 +391,14 @@ $.fn.state = function(parameters) {
               module.debug('Updating text', text);
               if(settings.selector.text) {
                 $module
-                  .blocks(metadata.storedText, text)
+                  .data(metadata.storedText, text)
                   .find(settings.selector.text)
                     .text(text)
                 ;
               }
               else {
                 $module
-                  .blocks(metadata.storedText, text)
+                  .data(metadata.storedText, text)
                   .html(text)
                 ;
               }
@@ -409,7 +415,12 @@ $.fn.state = function(parameters) {
             $.extend(true, settings, name);
           }
           else if(value !== undefined) {
-            settings[name] = value;
+            if($.isPlainObject(settings[name])) {
+              $.extend(true, settings[name], value);
+            }
+            else {
+              settings[name] = value;
+            }
           }
           else {
             return settings[name];
@@ -427,7 +438,7 @@ $.fn.state = function(parameters) {
           }
         },
         debug: function() {
-          if(settings.debug) {
+          if(!settings.silent && settings.debug) {
             if(settings.performance) {
               module.performance.log(arguments);
             }
@@ -438,7 +449,7 @@ $.fn.state = function(parameters) {
           }
         },
         verbose: function() {
-          if(settings.verbose && settings.debug) {
+          if(!settings.silent && settings.verbose && settings.debug) {
             if(settings.performance) {
               module.performance.log(arguments);
             }
@@ -449,8 +460,10 @@ $.fn.state = function(parameters) {
           }
         },
         error: function() {
-          module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
-          module.error.apply(console, arguments);
+          if(!settings.silent) {
+            module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+            module.error.apply(console, arguments);
+          }
         },
         performance: {
           log: function(message) {
