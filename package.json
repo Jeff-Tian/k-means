@@ -1,7 +1,7 @@
 {
   "name": "k-means",
   "version": "1.0.5",
-  "description": "Play cube online. 在线玩魔方.",
+  "description": "Online k-means clustering visualization. 在线 k-均值 聚类可视化",
   "main": "app.js",
   "scripts": {
     "test": "gulp mocha && gulp test"
@@ -43,7 +43,8 @@
     "jshint-stylish": "^2.1.0",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.2",
-    "karma-jasmine": "^0.3.7",
+    "karma-jasmine": "^0.3.8",
+    "karma-phantomjs-launcher": "^1.0.4",
     "run-sequence": "^1.2.1",
     "shelljs": "^0.6.0"
   },
