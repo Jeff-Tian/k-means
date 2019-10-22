@@ -1,0 +1,12 @@
+sudo: false
+language: node_js
+cache: npm
+node_js:
+- '10'
+install:
+- npm i
+script:
+- npm test
+- npm run build
+after_script:
+- npm i codecov && codecov

@@ -4,7 +4,9 @@
   "description": "Online k-means clustering visualization. 在线 k-均值 聚类可视化",
   "main": "app.js",
   "scripts": {
-    "test": "gulp mocha && gulp test"
+    "test": "gulp mocha && gulp test",
+    "start": "gulp",
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",

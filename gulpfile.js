@@ -11,6 +11,9 @@ var
     uglifyCss = require('gulp-minify-css'),
     jade = require('gulp-jade')
 
+const zhCN = require("./locales/zh");
+const enUS = require("./locales/en");
+
 gulp.task('jshint', function () {
     gulp
         .src(['./www/js/**/*.js', './tests/**/*.js'])
@@ -75,6 +78,10 @@ gulp.task('copy', function (done) {
         ;
 });
 
+gulp.task('copy-locales', function(){
+    return gulp.src(['locales/**/*']).pipe(gulp.dest('dist/locales/'))
+})
+
 gulp.task('uglify-js', function (done) {
     return gulp.src('public/scripts/*.js')
         .pipe(uglify())
@@ -93,14 +100,56 @@ gulp.task('uglify-css', function (done) {
 gulp.task('jade', function (done) {
     var jadeFiles = [{
         src: './views/index.jade',
-        dest: './public/'
+        dest: './dist/',
+        locale: zhCN,
+        locals: {
+            otherLocaleLink: "/en",
+            otherLocale: "en",
+        }
     }];
 
     return jadeFiles.forEach(function (jf) {
         if (!jf.src || !jf.dest) return done();
 
         gulp.src(jf.src)
-            .pipe(jade())
+            .pipe(jade({
+                locals:{
+                    __: function(key){
+                        return jf.locale[key];
+                    },
+                    ...(jf.locals || {})
+                }
+            }))
+            .pipe(gulp.dest(jf.dest))
+
+        done();
+    });
+});
+
+
+gulp.task('jade-en', function (done) {
+    var jadeFiles = [{
+        src: './views/index.jade',
+        dest: './dist/en/',
+        locale: enUS,
+        locals: {
+            otherLocaleLink: "/",
+            otherLocale: "zh",
+        }
+    }];
+
+    return jadeFiles.forEach(function (jf) {
+        if (!jf.src || !jf.dest) return done();
+
+        gulp.src(jf.src)
+            .pipe(jade({
+                locals:{
+                    __: function(key){
+                        return jf.locale[key];
+                    },
+                    ...(jf.locals || {})
+                }
+            }))
             .pipe(gulp.dest(jf.dest))
 
         done();
@@ -108,5 +157,5 @@ gulp.task('jade', function (done) {
 });
 
 gulp.task('build', function (done) {
-    runSequence('jshint', 'mocha', 'clean', /*'jade', */'copy', 'uglify-js', 'uglify-css', done);
+    runSequence('jshint', 'mocha', 'clean', 'jade', 'jade-en', 'copy', 'copy-locales', 'uglify-js', 'uglify-css', done);
 });

@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
+    - name: nodejs
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: npm install build and test
+      run: |
+        npm install
+        npm test
+        npm run build
+      env:
+        CI: true
+    - name: Deploy
+      uses: docker://peaceiris/gh-pages:v2.3.1
+      env:
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: ./dist
+      with:
+        emptyCommits: true
