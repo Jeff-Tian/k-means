@@ -1,0 +1,24 @@
+<html><head><meta charset="utf-8"/><meta http-quiv="X-UA-Compatible" content="IE=edge,chrome=1"/><meta name="view-port" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/><meta name="description" content="K-Means Clustering Visualization, play and learn k-means clustering algorithm."/><title>K-Means Clustering Visualization</title><link rel="shortcut icon" href="/favicon.ico"/><link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css"/><link rel="stylesheet" type="text/css" href="/bower_components/handsontable/dist/handsontable.full.min.css"/><style type="text/css">.cmd {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background-color: #202020;
+    border: 4px solid silver;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px #6e6e6e;
+    color: #e2e2e2;
+    display: block;
+    font: 1em 'andale mono', 'lucida console', monospace;
+    line-height: 1em;
+    overflow: auto;
+    padding: 15px;
+}
+
+.auto-wrap {
+    word-wrap: normal;
+    white-space: pre-wrap;
+}
+
+.hard.auto-wrap {
+    word-wrap: break-word;
+}
+</style></head></html><body><div ng-app="kMeansModule" ng-controller="kMeansCtrl"><div class="ui purple inverted menu"><a class="active item"><i class="users icon"></i>K-Means Clustering Visualization</a><a href="https://github.com/Jeff-Tian/k-means" target="_blank" rel="noopener noreferrer" class="item"><i class="github alternate icon"></i>Source Code</a><a href="/Jeff Tian Resume.pdf" target="_blank" rel="noopener noreferrer" class="item"><i class="pointing right icon"></i>My profile</a><div class="right menu"><a href="/" class="item"><i class="world icon"></i>中文简体</a></div></div><div class="ui two column grid"><div class="ui column"><div id="mycanvas" style="padding: 0px; box-sizing: border-box; image-rendering: -webkit-optimize-contrast !important; width: 100%; min-height: 450px;" tabindex="0" class="cmd"></div><h5>&nbsp;Clustering result:</h5><div class="hard auto-wrap cmd">{{clusteringResult}}</div><h5>&nbsp;The data of real time process: </h5><div class="hard auto-wrap cmd">{{current}}</div></div><div class="ui column"><form name="controlForm" ng-submit="kMeans()" ng-class="{'loading': computing}" class="ui form"><div class="inline field"><label># of centroids K:</label><input type="number" ng-model="kMeansData.k" placeholder="k value, also known as the number of clusters"/></div><div class="inline field"><label>Max iteration steps:</label><input type="number" ng-model="kMeansData.maxLoops" placeholder="Maximum iteration steps"/></div><div class="field"><button type="submit" class="ui button">Start Cluster</button></div><div><h5>Data:</h5><div id="data-table"></div></div></form></div></div><div class="ui inverted segment"><div class="ui inverted secondary menu"><a href="//ci.jijiyy.me/job/k-means.jijiyy.me/" target="_blank" class="item"><i class="dashboard icon"></i>Building Status</a></div></div></div><div><script src="/bower_components/jquery/dist/jquery.min.js"></script><script src="/semantic/dist/semantic.min.js"></script><script src="/bower_components/Flot/jquery.flot.js"></script><script src="/bower_components/Flot/jquery.flot.navigate.js"></script><script src="/bower_components/Flot/jquery.flot.symbol.js"></script><script src="/bower_components/angular/angular.min.js"></script><script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script><script src="/bower_components/angular-translate/angular-translate.min.js"></script><script src="/locales/index.js"></script><script src="/scripts/kMeansModule.js"></script><script src="/bower_components/handsontable/dist/handsontable.full.min.js"></script><script type="text/javascript"></script></div></body>

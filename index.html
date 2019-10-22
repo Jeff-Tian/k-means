@@ -1,0 +1,24 @@
+<html><head><meta charset="utf-8"/><meta http-quiv="X-UA-Compatible" content="IE=edge,chrome=1"/><meta name="view-port" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/><meta name="description" content="在线可视化体验 k 均值聚类分析算法."/><title>K 均值聚类算法可视化</title><link rel="shortcut icon" href="/favicon.ico"/><link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css"/><link rel="stylesheet" type="text/css" href="/bower_components/handsontable/dist/handsontable.full.min.css"/><style type="text/css">.cmd {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background-color: #202020;
+    border: 4px solid silver;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px #6e6e6e;
+    color: #e2e2e2;
+    display: block;
+    font: 1em 'andale mono', 'lucida console', monospace;
+    line-height: 1em;
+    overflow: auto;
+    padding: 15px;
+}
+
+.auto-wrap {
+    word-wrap: normal;
+    white-space: pre-wrap;
+}
+
+.hard.auto-wrap {
+    word-wrap: break-word;
+}
+</style></head></html><body><div ng-app="kMeansModule" ng-controller="kMeansCtrl"><div class="ui purple inverted menu"><a class="active item"><i class="users icon"></i>K 均值聚类算法可视化</a><a href="https://github.com/Jeff-Tian/k-means" target="_blank" rel="noopener noreferrer" class="item"><i class="github alternate icon"></i>源代码</a><a href="/田杰.简历.pdf" target="_blank" rel="noopener noreferrer" class="item"><i class="pointing right icon"></i>我的简历</a><div class="right menu"><a href="/en" class="item"><i class="world icon"></i>English</a></div></div><div class="ui two column grid"><div class="ui column"><div id="mycanvas" style="padding: 0px; box-sizing: border-box; image-rendering: -webkit-optimize-contrast !important; width: 100%; min-height: 450px;" tabindex="0" class="cmd"></div><h5>&nbsp;聚类结果</h5><div class="hard auto-wrap cmd">{{clusteringResult}}</div><h5>&nbsp;实时过程数据</h5><div class="hard auto-wrap cmd">{{current}}</div></div><div class="ui column"><form name="controlForm" ng-submit="kMeans()" ng-class="{'loading': computing}" class="ui form"><div class="inline field"><label>中心点个数 k:</label><input type="number" ng-model="kMeansData.k" placeholder="k 值 , 即类别个数"/></div><div class="inline field"><label>最大迭代次数:</label><input type="number" ng-model="kMeansData.maxLoops" placeholder="最大迭代次数"/></div><div class="field"><button type="submit" class="ui button">开始聚类</button></div><div><h5>数据:</h5><div id="data-table"></div></div></form></div></div><div class="ui inverted segment"><div class="ui inverted secondary menu"><a href="//ci.jijiyy.me/job/k-means.jijiyy.me/" target="_blank" class="item"><i class="dashboard icon"></i>编译状态</a></div></div></div><div><script src="/bower_components/jquery/dist/jquery.min.js"></script><script src="/semantic/dist/semantic.min.js"></script><script src="/bower_components/Flot/jquery.flot.js"></script><script src="/bower_components/Flot/jquery.flot.navigate.js"></script><script src="/bower_components/Flot/jquery.flot.symbol.js"></script><script src="/bower_components/angular/angular.min.js"></script><script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script><script src="/bower_components/angular-translate/angular-translate.min.js"></script><script src="/locales/index.js"></script><script src="/scripts/kMeansModule.js"></script><script src="/bower_components/handsontable/dist/handsontable.full.min.js"></script><script type="text/javascript"></script></div></body>
