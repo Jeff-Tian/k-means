@@ -5,7 +5,7 @@ node_js:
 - '10'
 install:
 - npm i
-- bower install
+- npm i - g bower && bower install
 script:
 - npm test
 - npm run build
