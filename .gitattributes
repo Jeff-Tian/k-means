@@ -3,3 +3,15 @@
 *.overrides text eol=lf
 *.css text eol=lf
 *.md text eol=lf
+*.jade text eol=lf
+*.variables text eol=lf
+*.svg text eol=lf
+*.less text eol=lf
+*.config text eol=lf
+*.sh text eol=lf
+*.yml text eol=lf
+.bowerrc text eol=lf
+.gitattributes text eol=lf
+*.html text eol=lf
+public/CNAME text eol=lf
+LICENSE text eol=lf

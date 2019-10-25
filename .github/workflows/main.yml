@@ -24,6 +24,7 @@ jobs:
     - name: npm install build and test
       run: |
         npm install
+        npm i -g bower && bower install
         npm test
         npm run build
       env:
