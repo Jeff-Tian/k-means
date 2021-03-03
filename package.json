@@ -27,7 +27,7 @@
     "express": "^4.13.4",
     "i18n": "^0.8.2",
     "jade": "1.11.0",
-    "pug": "^2.0.0-alpha3",
+    "pug": "^3.0.1",
     "semantic-ui": "^2.1.8"
   },
   "devDependencies": {
