@@ -28,7 +28,7 @@
     "i18n": "^0.8.2",
     "jade": "1.11.0",
     "pug": "^2.0.0-alpha3",
-    "semantic-ui": "^2.1.8"
+    "semantic-ui": "^2.5.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
