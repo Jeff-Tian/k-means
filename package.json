@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/Jeff-Tian/cube#readme",
   "dependencies": {
-    "body-parser": "^1.15.0",
+    "body-parser": "^1.20.3",
     "connect-busboy": "0.0.2",
-    "express": "^4.13.4",
+    "express": "^4.20.0",
     "i18n": "^0.8.2",
     "jade": "1.11.0",
     "pug": "^2.0.0-alpha3",
